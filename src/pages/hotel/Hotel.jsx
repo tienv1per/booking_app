@@ -3,7 +3,7 @@ import './hotel.css';
 import Navbar from '../../components/navbar/Navbar';
 import Header from '../../components/header/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faCircleArrowLeft, faCircleArrowRight, faCircleXmark, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import MailList from '../../components/mailList/MailList';
 import Footer from '../../components/footer/Footer';
 
@@ -32,16 +32,54 @@ export const Hotel = () => {
 		},
 	];
 
+	const handleOpen = (index) => {
+		setSlideNumber(index);
+		setOpen(true);
+	}
+
+	const handleMove = (side) => {
+		let index;
+		if (side === "left") {
+			index = slideNumber === 0 ? 5 : slideNumber - 1;
+		}
+		else {
+			index = slideNumber === 5 ? 0 : slideNumber + 1;
+		}
+		setSlideNumber(index);
+
+	}
+
 	return (
 		<div className='hotel'>
 			<Navbar/>
 			<Header type="list"/>
 			<div className='hotelContainer'>
 				{open && <div className='slider'>
-
+					<FontAwesomeIcon 
+						icon={faCircleXmark} 
+						className='close' 
+						onClick={() => setOpen(false)}	
+					/>
+					<FontAwesomeIcon 
+						icon={faCircleArrowLeft} 
+						className='arrow'
+						onClick={() => handleMove("left")}	
+					/>
+					<div className='sliderWrapper'>
+						<img
+							className='sliderImg'
+							src={photos[slideNumber].src}
+							alt=''
+						/>
+					</div>
+					<FontAwesomeIcon 
+						icon={faCircleArrowRight} 
+						className='arrow'
+						onClick={() => handleMove("right")}	
+					/>
 				</div>}
 				<div className='hotelWrapper'>
-					<div style={{display: 'grid'}}>
+					<div className='hotelText'>
 						<h1 className='hotelTitle'>Grand Hotel</h1>
 						<div className='hotelAddress'>
 							<FontAwesomeIcon icon={faLocationDot}/>
@@ -59,7 +97,7 @@ export const Hotel = () => {
 							return (
 								<div className='hotelImgWrapper' key={index}>
 									<img
-										onClick={() => setSlideNumber(index)}
+										onClick={() => handleOpen(index)}
 										src={photo.src}
 										alt=''
 										className='hotelImg'
