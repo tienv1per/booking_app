@@ -21,6 +21,7 @@
 }
 
 .fpName {
+    color: #333;
     font-weight: bold;
 }
 
@@ -43,5 +44,4 @@
 
 .fpRating>span {
     font-size: 14px;
-
 }
