@@ -6,6 +6,7 @@ import Featured from '../../components/featured/Featured';
 import PropertyList from '../../components/propertyList/PropertyList';
 import FeaturedProperties from '../../components/featured/FeaturedProperties';
 import MailList from '../../components/mailList/MailList';
+import Footer from '../../components/footer/Footer';
 
 export const Home = () => {
   return (
@@ -19,6 +20,7 @@ export const Home = () => {
             <h1 className='homeTitle'>Homes guests love</h1>
             <FeaturedProperties/>
             <MailList/>
+            <Footer/>
         </div>
     </div>
   )

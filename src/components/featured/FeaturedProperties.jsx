@@ -1,5 +1,5 @@
 import React from 'react';
-import './FeaturedProperties.css';
+import './featuredProperties.css';
 
 const FeaturedProperties = () => {
   return (
