@@ -36,8 +36,7 @@ module.exports.login = async(req, res, next) => {
         if(!isPasswordCorrect) return next(createError(400, "Password incorrect"));
 
         const {password, isAdmin, ...otherDetails} = user._doc;
-        const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, JWT_SECRET_KEY)
-        console.log(token);
+        const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, JWT_SECRET_KEY);
         return res
                 .cookie("access_token", token, {
                     httpOnly: true,
