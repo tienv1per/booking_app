@@ -29,7 +29,7 @@ module.exports.deleteHotel = async(req, res) => {
         await Hotel.findByIdAndDelete(
             req.params.id, 
         );
-    res.status(200).json("DETED SUCCESSFULLY");
+    res.status(200).json("DELETE SUCCESSFULLY");
     } catch (error) {
         res.status(500).json(error);
     }
