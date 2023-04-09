@@ -28,7 +28,6 @@ const connect = async () => {
 app.use(express.json());
 
 app.use((req, res, next) => {
-    // console.log("Middlware");
     next();
 })
 
