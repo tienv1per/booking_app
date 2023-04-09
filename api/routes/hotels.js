@@ -11,6 +11,6 @@ router.delete('/:id', hotelsController.deleteHotel);
 // GET
 router.get('/:id', hotelsController.getHotel);
 // GET ALL
-router.get('/', hotelsController.getHotel);
+router.get('/', hotelsController.getHotels);
 
 module.exports = router;

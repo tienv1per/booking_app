@@ -47,10 +47,10 @@ module.exports.getHotel = async(req, res) => {
 }
 
 module.exports.getHotels = async(req, res, next) => {
-    const failed = true;
-    if(failed) {
-        return next(createError(401, "You are not authenticated"));
-    }
+    // const failed = true;
+    // if(failed) {
+    //     return next(createError(401, "You are not authenticated"));
+    // }
     try {
         const hotels = await Hotel.find();
     res.status(200).json(hotels);
