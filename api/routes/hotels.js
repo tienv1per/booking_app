@@ -12,7 +12,7 @@ router.delete('/:id', verify.verifyAdmin, hotelsController.deleteHotel);
 // GET
 router.get('/find/:id', verify.verifyAdmin, hotelsController.getHotel);
 // GET ALL
-router.get('/', verify.verifyAdmin, hotelsController.getHotels);
+router.get('/', hotelsController.getHotels);
 
 router.get('/countByCity', hotelsController.countByCity);
 

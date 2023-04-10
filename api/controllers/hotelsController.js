@@ -53,8 +53,7 @@ module.exports.getHotels = async(req, res, next) => {
             ...others,
             cheapestPrice: {$gt: minPrice  || 1, $lt: maxPrice || 999}
         }).limit(10);
-        // console.log(req.query);
-        // console.log(req.query.limit);
+
         return res.status(200).json(hotels);
     } catch (error) {
         next(error);
