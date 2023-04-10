@@ -10,8 +10,12 @@ router.put('/:id', verify.verifyAdmin, hotelsController.updateHotel);
 // DELETE
 router.delete('/:id', verify.verifyAdmin, hotelsController.deleteHotel);
 // GET
-router.get('/:id', verify.verifyAdmin, hotelsController.getHotel);
+router.get('/find/:id', verify.verifyAdmin, hotelsController.getHotel);
 // GET ALL
 router.get('/', verify.verifyAdmin, hotelsController.getHotels);
+
+router.get('/countByCity', hotelsController.countByCity);
+
+router.get('/countByType', hotelsController.countByType);
 
 module.exports = router;

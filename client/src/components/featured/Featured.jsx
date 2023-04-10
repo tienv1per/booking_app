@@ -1,17 +1,19 @@
 import React from 'react';
 import './featured.css';
+import useFetch from '../../hooks/useFetch';
 
 const Featured = () => {
+    const {data, loading, error} = useFetch("hotels/countByCity?cities=Barcelona,New York,Paris");
   return (
     <div className='featured'>
-        <div className='featuredItem'>
+        {loading ? "Loading please wait" : <><div className='featuredItem'>
             <img 
                 src='https://cf.bstatic.com/xdata/images/city/max500/957801.webp?k=a969e39bcd40cdcc21786ba92826063e3cb09bf307bcfeac2aa392b838e9b7a5&o=' 
                 alt=''
             />
             <div className='featuredTitles'>
-                <h1>Dublin</h1>
-                <h1>123 properties</h1>
+                <h1>Barcelona</h1>
+                <h1>{data[0]} properties</h1>
             </div>
         </div>
         <div className='featuredItem'>
@@ -20,8 +22,8 @@ const Featured = () => {
                 alt=''
             />
             <div className='featuredTitles'>
-                <h1>Barcelona</h1>
-                <h1>123 properties</h1>
+                <h1>New York</h1>
+                <h1>{data[1]} properties</h1>
             </div>
         </div>
         <div className='featuredItem'>
@@ -30,12 +32,12 @@ const Featured = () => {
                 alt=''
             />
             <div className='featuredTitles'>
-                <h1>London</h1>
-                <h1>123 properties</h1>
+                <h1>Paris</h1>
+                <h1>{data[2]} properties</h1>
             </div>
-        </div>
+        </div></>}
     </div>
   )
 }
 
-export default Featured
+export default Featured;
