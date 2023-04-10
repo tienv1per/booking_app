@@ -48,6 +48,8 @@ module.exports.getHotel = async(req, res) => {
 
 module.exports.getHotels = async(req, res, next) => {
     const { minPrice, maxPrice, ...others } = req.query;
+    // console.log(req.query);
+    // console.log(req.query.minPrice);
     try {
         const hotels = await Hotel.find({
             ...others,

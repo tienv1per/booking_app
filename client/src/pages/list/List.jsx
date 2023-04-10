@@ -6,16 +6,23 @@ import { useLocation } from 'react-router-dom';
 import { format } from 'date-fns';
 import { DateRange } from 'react-date-range';
 import SearchItem from '../../components/searchItem/SearchItem';
+import useFetch from '../../hooks/useFetch';
 
 export const List = () => {
 	const location = useLocation();
 	const [destination, setDestination] = useState(location.state.destination);
 	const [date, setDate] = useState(location.state.date);
 	const [options, setOptions] = useState(location.state.options);
+	const [minPrice, setMinPrice] = useState(undefined);
+	const [maxPrice, setMaxPrice] = useState(undefined);
 
 	const [openDate, setOpenDate] = useState(false);
 
-	console.log(location);
+	const {data, loading, error, reFetch} = useFetch(`http://localhost:8000/api/hotels?city=${destination}&minPrice=${minPrice || 0}&maxPrice=${maxPrice || 9999}`);
+
+	const handleSearch = () => {
+		// reFetch();
+	}
 
 	return (
 		<div>
@@ -29,7 +36,6 @@ export const List = () => {
 							<label>Destination</label>
 							<input 
 								type='text' 
-								// value={destination}
 								placeholder={destination}
 							/>
 						</div>
@@ -49,11 +55,25 @@ export const List = () => {
 							<div className='lsOptions'>
 								<div className='lsOptionItem'>
 									<span className='lsOptionText'>Min Price <small>per night</small></span>
-									<input type='number' className='lsOptionInput'/>
+									<input 
+										min={0}
+										max={10000}
+										type='number' 
+										className='lsOptionInput'
+										value={minPrice}	
+										onChange={e => setMinPrice(e.target.value)}
+									/>
 								</div>
 								<div className='lsOptionItem'>
 									<span className='lsOptionText'>Max Price <small>per night</small></span>
-									<input type='number' className='lsOptionInput'/>
+									<input 
+										min={0}
+										max={100000}
+										type='number' 
+										className='lsOptionInput'
+										value={maxPrice}
+										onChange={e => setMaxPrice(e.target.value)}	
+									/>
 								</div>
 								<div className='lsOptionItem'>
 									<span className='lsOptionText'>Adult</span>
@@ -69,19 +89,16 @@ export const List = () => {
 								</div>
 							</div>
 						</div>
-						<button>Search</button>
+						<button onClick={handleSearch}>Search</button>
 					</div>
 					<div className='listResult'>
-						<SearchItem/>
-						<SearchItem/>
-						<SearchItem/>
-						<SearchItem/>
-						<SearchItem/>
-						<SearchItem/>
-						<SearchItem/>
-						<SearchItem/>
-						<SearchItem/>
-						<SearchItem/>
+						{loading ? "Loading please wait" : <>
+							{data.map((item, index) => {
+								return (
+									<SearchItem key={index} item={item}/>
+								)})
+							}
+						</>}
 					</div>
 				</div>
 			</div>
