@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Reserve = ({setOpen, hotelId}) => {
 	const [selectedRooms, setSelectedRooms] = useState([]);
-	const {data, loading, error} = useFetch(`http://localhost:8000/api/hotels/room/${hotelId}`);
+	const {data} = useFetch(`http://localhost:8000/api/hotels/room/${hotelId}`);
 	const {dates} = useContext(SearchContext);
 
 	const navigate = useNavigate();
@@ -20,8 +20,8 @@ const Reserve = ({setOpen, hotelId}) => {
 		const date = new Date(start.getTime());
 		const listDate = [];
 
-		while(date < end){
-			listDate.push(date);
+		while(date <= end){
+			listDate.push(new Date(date).getTime());
 			date.setDate(date.getDate() + 1);
 		}
 		return listDate;
@@ -49,16 +49,16 @@ const Reserve = ({setOpen, hotelId}) => {
 
 	const handleClick = async () => {
 		try {
-		  await Promise.all(
-			selectedRooms.map((roomId) => {
-			  const res = axios.put(`http://localhost:8000/api/rooms/available/${roomId}`, {
-				dates: allDates,
-			  });
-			  return res.data;
-			})
-		  );
-		  setOpen(false);
-		  navigate("/");
+			await Promise.all(
+				selectedRooms.map((roomId) => {
+					const res = axios.put(`http://localhost:8000/api/rooms/available/${roomId}`, {
+						dates: allDates,
+					});
+					return res.data;
+				})
+			);
+			setOpen(false);
+			navigate("/");
 		} catch (err) {
 
 		}
@@ -97,7 +97,6 @@ const Reserve = ({setOpen, hotelId}) => {
 									)
 								})}
 							</div>
-
 						</div>
 					)
 				})}
