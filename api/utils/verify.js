@@ -13,6 +13,7 @@ module.exports.verifyToken = (req, res, next) => {
         if(err) {
             return next(createError(403, "Invalid token"));
         }
+        console.log(1234);
         // gan 1 thuoc tinh user cho request 
         req.user = user;
         next();
@@ -21,7 +22,9 @@ module.exports.verifyToken = (req, res, next) => {
 
 module.exports.verifyUser = (req, res, next) => {
     this.verifyToken(req, res, () => {
-        if(req.user.id === req.params.id || req.user.isAdmin) {
+        console.log(req.user.isAdmin);
+        if(req.url.slice(1) === req.params.id || req.user.isAdmin) {
+
             next();
         }
         else {

@@ -11,6 +11,6 @@ router.delete('/:id', verify.verifyUser, userController.deleteUser);
 // GET
 router.get('/:id', verify.verifyUser, userController.getUser);
 // GET ALL
-router.get('/', verify.verifyAdmin, userController.getUsers);
+router.get('/', userController.getUsers);
 
 module.exports = router;

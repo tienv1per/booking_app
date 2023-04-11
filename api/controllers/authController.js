@@ -13,8 +13,7 @@ module.exports.register = async(req, res, next) => {
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(req.body.password, salt);
         const newUser = new User({
-            username: req.body.username,
-            email: req.body.email,
+            ...req.body,
             password: hashedPassword,
         })
 
@@ -42,7 +41,7 @@ module.exports.login = async(req, res, next) => {
                     httpOnly: true,
                 })
                 .status(200)
-                .json(otherDetails);
+                .json({details: {otherDetails}, isAdmin});
     } catch (error) {
         next(error);
     }
