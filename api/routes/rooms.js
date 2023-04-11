@@ -7,11 +7,13 @@ const verify = require('../utils/verify');
 router.post('/:hotelid', verify.verifyAdmin, roomsController.createRoom);
 // UPDATE
 router.put('/:id', verify.verifyAdmin, roomsController.updateRoom);
+router.put('/available/:id', roomsController.updateAvailableRoom);
 // DELETE
 router.delete('/:id/:hotelid', verify.verifyAdmin, roomsController.deleteRoom);
 // GET
 router.get('/:id', verify.verifyAdmin, roomsController.getRoom);
 // GET ALL
 router.get('/', verify.verifyAdmin, roomsController.getRooms);
+
 
 module.exports = router;

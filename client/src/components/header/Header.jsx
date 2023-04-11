@@ -99,7 +99,6 @@ const Header = ({type}) => {
                         placeholder='Where are you going?' 
                         className='headerSearchInput'
                     />
-                    {console.log(destination)}
                 </div>
                 <div className='headerSearchItem'>
                     <FontAwesomeIcon icon={faCalendarDays} className='headerIcon'/>

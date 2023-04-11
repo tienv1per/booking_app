@@ -7,16 +7,19 @@ import { faCircleArrowLeft, faCircleArrowRight, faCircleXmark, faLocationDot } f
 import MailList from '../../components/mailList/MailList';
 import Footer from '../../components/footer/Footer';
 import useFetch from '../../hooks/useFetch';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {SearchContext} from '../../context/SearchContext';
+import { AuthContext } from '../../context/AuthContext';
+import Reserve from '../../components/reserve/Reserve';
 
 export const Hotel = () => {
 	const [slideNumber, setSlideNumber] = useState(0);
 	const [open, setOpen] = useState(false);
+	const [openModal, setOpenModal] = useState(false);
+
 	const location = useLocation().pathname;
 	const path = location.split('/')[2];
-	const {data, loading, error} = useFetch(`http://localhost:8000/api/hotels/find/${path}`);
-	console.log(data);
+	const {data, loading } = useFetch(`http://localhost:8000/api/hotels/find/${path}`);
 
 	const photos = [
 		{
@@ -40,6 +43,9 @@ export const Hotel = () => {
 	];
 
 	const { dates, options } = useContext(SearchContext);
+	const {user} = useContext(AuthContext);
+
+	const navigate = useNavigate();
 
 	const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
 
@@ -65,7 +71,15 @@ export const Hotel = () => {
 			index = slideNumber === 5 ? 0 : slideNumber + 1;
 		}
 		setSlideNumber(index);
+	}
 
+	const handleClick = () => {
+		if(user) {
+			setOpenModal(true);
+		}
+		else{
+			navigate("/login");
+		}
 	}
 
 	return (
@@ -141,9 +155,10 @@ export const Hotel = () => {
 							<h2>
 								<b>${days * data.cheapestPrice * options.room}</b> ({days} nights)
 							</h2>
-							<button>Reserve or Book Now!</button>
+							<button onClick={handleClick}>Reserve or Book Now!</button>
 						</div>
 					</div>
+					{openModal && <Reserve setOpen={setOpenModal} hotelId={path} />}
 				</div>
 				<MailList/>
 				<Footer/>
