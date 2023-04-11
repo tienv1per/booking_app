@@ -16,6 +16,7 @@ export const Hotel = () => {
 	const location = useLocation().pathname;
 	const path = location.split('/')[2];
 	const {data, loading, error} = useFetch(`http://localhost:8000/api/hotels/find/${path}`);
+	console.log(data);
 
 	const photos = [
 		{
@@ -39,14 +40,13 @@ export const Hotel = () => {
 	];
 
 	const { dates, options } = useContext(SearchContext);
-	console.log(dates);
 
 	const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
 
 	function dayDifference(date1, date2) {
 		const timeDiff = Math.abs(date2.getTime() - date1.getTime());
 		const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
-		return diffDays;
+		return diffDays + 1;
 	}
   
 	const days = dayDifference(dates[0].endDate, dates[0].startDate);

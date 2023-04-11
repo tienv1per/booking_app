@@ -8,13 +8,14 @@
 .navContainer {
     width: 100%;
     max-width: 1024px;
-    color: rgb(172, 33, 33);
+    color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .logo {
+    color: white;
     font-weight: 500;
 }
 
